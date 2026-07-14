@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="ocean">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Absensi Gugus Suku Rawah</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- MEMANGGIL FILE CSS KAMU -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="background-animation">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="particle-container" id="particles"></div>
+    </div>
+
+    <div class="theme-switcher-container hidden" id="globalThemeSwitcher">
+        <button class="theme-btn active" data-theme="ocean" title="Ocean Blue"><i class="fas fa-water"></i></button>
+        <button class="theme-btn" data-theme="dark" title="Dark Blue"><i class="fas fa-moon"></i></button>
+        <button class="theme-btn" data-theme="sky" title="Sky Blue"><i class="fas fa-cloud-sun"></i></button>
+    </div>
+
+    <section class="auth-section" id="authSection">
+        <div class="auth-card glass-card fade-in">
+            <div class="logo-container zoom-in">
+                <i class="fas fa-users-rectangle logo-icon"></i>
+            </div>
+            <h1 class="typing-text">ABSENSI GUGUS SUKU RAWAH</h1>
+            <p class="subtitle">Silakan isi identitas sebelum melanjutkan.</p>
+            
+            <form id="loginForm" autocomplete="off">
+                <div class="input-group slide-up">
+                    <label for="username"><i class="fas fa-user"></i> Nama Lengkap</label>
+                    <input type="text" id="username" value="Aokira" placeholder="Contoh: Aokira" required>
+                    <span class="error-msg" id="nameError">Nama tidak boleh kosong!</span>
+                </div>
+                <div class="input-group slide-up">
+                    <label for="gugusName"><i class="fas fa-id-badge"></i> Nama Gugus</label>
+                    <input type="text" id="gugusName" value="Gugus Suku Rawah" placeholder="Contoh: Gugus Suku Rawah" required>
+                </div>
+                <button type="submit" class="btn btn-primary ripple-btn slide-up">
+                    <span>Masuk</span> <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <div class="loading-screen hidden" id="loadingScreen">
+        <div class="spinner-box">
+            <div class="configure-border-1"><div class="configure-core"></div></div>
+            <div class="configure-border-2"><div class="configure-core"></div></div>
+            <p class="loading-text">Memproses Data...</p>
+        </div>
+    </div>
+
+    <main class="main-dashboard hidden" id="mainDashboard">
+        <header class="dashboard-header glass-card slide-up">
+            <div class="welcome-area">
+                <h2 id="welcomeTitle">Welcome, User 👋</h2>
+                <p>Selamat datang di Website Absensi Gugus Suku Rawah.</p>
+            </div>
+            <button id="logoutBtn" class="btn btn-danger ripple-btn"><i class="fas fa-sign-out-alt"></i> Keluar</button>
+        </header>
+
+        <div class="info-grid">
+            <div class="info-card glass-card float-anim">
+                <div class="card-icon blue"><i class="far fa-calendar-alt"></i></div>
+                <div class="card-data">
+                    <span class="card-label">Tanggal Hari Ini</span>
+                    <h3 id="currentDate">-</h3>
+                </div>
+            </div>
+            <div class="info-card glass-card float-anim" style="animation-delay: 0.2s;">
+                <div class="card-icon purple"><i class="far fa-clock"></i></div>
+                <div class="card-data">
+                    <span class="card-label">Jam Real Time</span>
+                    <h3 id="currentTime">00:00:00</h3>
+                </div>
+            </div>
+            <div class="info-card glass-card float-anim" style="animation-delay: 0.4s;">
+                <div class="card-icon green"><i class="fas fa-user-check"></i></div>
+                <div class="card-data">
+                    <span class="card-label">Status Absensi</span>
+                    <h3 id="attendanceStatus">Belum Mengisi</h3>
+                </div>
+            </div>
+            <div class="info-card glass-card float-anim" style="animation-delay: 0.6s;">
+                <div class="card-icon orange"><i class="fas fa-chart-line"></i></div>
+                <div class="card-data">
+                    <span class="card-label">Progress Kehadiran</span>
+                    <h3 id="attendanceProgressText">0%</h3>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" id="progressBarFill" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <section class="form-section glass-card fade-in">
+                <div class="section-header">
+                    <h3><i class="fas fa-clipboard-list"></i> Form Absensi Mandiri</h3>
+                    <div class="shimmer-line"></div>
+                </div>
+                
+                <form id="attendanceForm">
+                    <div class="days-container">
+                        <div class="day-row glass-card" data-day="Sabtu">
+                            <span class="day-name">Sabtu</span>
+                            <div class="status-options">
+                                <label class="status-label option-hadir">
+                                    <input type="radio" name="day_Sabtu" value="Hadir">
+                                    <span class="custom-radio"><i class="fas fa-check icon-status"></i> Hadir</span>
+                                </label>
+                                <label class="status-label option-absen">
+                                    <input type="radio" name="day_Sabtu" value="Tidak Hadir">
+                                    <span class="custom-radio"><i class="fas fa-times icon-status"></i> Tidak Hadir</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="day-row glass-card" data-day="Senin">
+                            <span class="day-name">Senin</span>
+                            <div class="status-options">
+                                <label class="status-label option-hadir">
+                                    <input type="radio" name="day_Senin" value="Hadir">
+                                    <span class="custom-radio"><i class="fas fa-check icon-status"></i> Hadir</span>
+                                </label>
+                                <label class="status-label option-absen">
+                                    <input type="radio" name="day_Senin" value="Tidak Hadir">
+                                    <span class="custom-radio"><i class="fas fa-times icon-status"></i> Tidak Hadir</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="day-row glass-card" data-day="Selasa">
+                            <span class="day-name">Selasa</span>
+                            <div class="status-options">
+                                <label class="status-label option-hadir">
+                                    <input type="radio" name="day_Selasa" value="Hadir">
+                                    <span class="custom-radio"><i class="fas fa-check icon-status"></i> Hadir</span>
+                                </label>
+                                <label class="status-label option-absen">
+                                    <input type="radio" name="day_Selasa" value="Tidak Hadir">
+                                    <span class="custom-radio"><i class="fas fa-times icon-status"></i> Tidak Hadir</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="day-row glass-card" data-day="Rabu">
+                            <span class="day-name">Rabu</span>
+                            <div class="status-options">
+                                <label class="status-label option-hadir">
+                                    <input type="radio" name="day_Rabu" value="Hadir">
+                                    <span class="custom-radio"><i class="fas fa-check icon-status"></i> Hadir</span>
+                                </label>
+                                <label class="status-label option-absen">
+                                    <input type="radio" name="day_Rabu" value="Tidak Hadir">
+                                    <span class="custom-radio"><i class="fas fa-times icon-status"></i> Tidak Hadir</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="day-row glass-card" data-day="Kamis">
+                            <span class="day-name">Kamis</span>
+                            <div class="status-options">
+                                <label class="status-label option-hadir">
+                                    <input type="radio" name="day_Kamis" value="Hadir">
+                                    <span class="custom-radio"><i class="fas fa-check icon-status"></i> Hadir</span>
+                                </label>
+                                <label class="status-label option-absen">
+                                    <input type="radio" name="day_Kamis" value="Tidak Hadir">
+                                    <span class="custom-radio"><i class="fas fa-times icon-status"></i> Tidak Hadir</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-success btn-block ripple-btn style-submit-btn">
+                        <i class="fas fa-save"></i> Simpan Absensi
+                    </button>
+                </form>
+            </section>
+
+            <section class="stats-section glass-card fade-in">
+                <div class="section-header">
+                    <h3><i class="fas fa-pie-chart"></i> Ringkasan Statistik</h3>
+                    <div class="shimmer-line"></div>
+                </div>
+                <div class="stats-content">
+                    <div class="chart-box">
+                        <canvas id="statsCanvas" width="160" height="160"></canvas>
+                        <div class="chart-center-text" id="chartCenterText">0%</div>
+                    </div>
+                    <div class="stats-details">
+                        <div class="stat-indicator item-hadir">
+                            <span class="dot"></span> Hadir: <strong id="statHadirCount">0</strong>
+                        </div>
+                        <div class="stat-indicator item-absen">
+                            <span class="dot"></span> Tidak Hadir: <strong id="statAbsenCount">0</strong>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <section class="history-section glass-card slide-up">
+            <div class="section-header">
+                <h3><i class="fas fa-history"></i> Riwayat Absensi Terkini</h3>
+                <div class="shimmer-line"></div>
+            </div>
+            <div class="table-responsive">
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Gugus</th>
+                            <th>Hari</th>
+                            <th>Status</th>
+                            <th>Tanggal</th>
+                            <th>Jam</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyTableBody">
+                        <tr class="empty-row">
+                            <td colspan="6" style="text-align: center; color: var(--text-muted);">Belum ada riwayat absensi.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <footer class="dashboard-footer text-glow">
+            <p>Copyright © 2026 <span>Gugus Suku Rawah</span>. Made with ❤️</p>
+        </footer>
+    </main>
+
+    <div class="modal-overlay hidden" id="successModal">
+        <div class="modal-box glass-card scale-in">
+            <div class="success-icon-animation"><i class="fas fa-circle-check"></i></div>
+            <h3>Absensi Berhasil Disimpan!</h3>
+            <p>Terima kasih telah melakukan pengisian absensi.</p>
+            <button class="btn btn-primary ripple-btn" id="closeModalBtn">Oke, Mengerti</button>
+        </div>
+    </div>
+
+    <!-- MEMANGGIL FILE JAVASCRIPT KAMU -->
+    <script src="script.js"></script>
+</body>
+</html>
+
